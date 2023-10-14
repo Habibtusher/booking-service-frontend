@@ -16,12 +16,18 @@
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+
+
+.password-filed {
+  position: relative;
+}
+.eye {
+  position: absolute;
+  top: 19px;
+  right: 0;
+  font-size: 20px;
+  width: 25px;
+  margin-top: 20px;
+  margin-right: 20px;
+  padding-right: 10px;
 }

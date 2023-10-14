@@ -1,8 +1,10 @@
+
+import Providers from '@/lib/Providers'
 import './globals.css'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 
-const inter = Inter({ subsets: ['latin'] })
+import { ToastContainer } from 'react-toastify'
+
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -15,8 +17,15 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+    <Providers>
+      <html lang="en">
+        <body>
+          {children}
+          <ToastContainer position="bottom-right" closeButton={false} />
+          </body>
+       
+      </html>
+    
+    </Providers>
   )
 }
