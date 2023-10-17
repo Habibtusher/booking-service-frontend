@@ -1,4 +1,9 @@
+"use client"
 import React from 'react';
+import Foods from '@/components/Foods';
+import Reviews from '@/components/Reviews';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+
 
 const Home = () => {
   return (
@@ -20,6 +25,8 @@ const Home = () => {
         </div>
 
       </div>
+      <Foods/>
+   <Reviews/>
     </div>
   );
 };
