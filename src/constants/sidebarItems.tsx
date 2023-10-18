@@ -6,8 +6,9 @@ import {
   ScheduleOutlined,
   ThunderboltOutlined,
   CreditCardOutlined,
-  FileTextOutlined,
-  HistoryOutlined
+  UsergroupAddOutlined,
+  HistoryOutlined,
+  MenuUnfoldOutlined
 } from "@ant-design/icons";
 import Link from "next/link";
 
@@ -24,6 +25,18 @@ export const sidebarItems = (role: string) => {
       label:<Link href={`/${role}/history`}>History</Link> ,
       key: "history",
       icon: <HistoryOutlined />,
+     
+    },
+    {
+      label:<Link href={`/admin/manage-service`}>Manage Admin</Link> ,
+      key: "manage",
+      icon: <MenuUnfoldOutlined />,
+     
+    },
+    {
+      label:<Link href={`/admin/manage-admin`}>Manage Service</Link> ,
+      key: "admin",
+      icon: <UsergroupAddOutlined />,
      
     },
   ];

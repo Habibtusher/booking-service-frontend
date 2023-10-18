@@ -17,19 +17,19 @@ import Link from 'next/link';
 
 const { Header: AntHeader, Sider, Content } = Layout;
 const Sidebar = ({ children }: { children: React.ReactNode }) => {
-    
-    const {role} = getUserInfo() as any;
-    console.log("hello from sidebar",role);
+
+    const { role } = getUserInfo() as any;
+    console.log("hello from sidebar", role);
     const [collapsed, setCollapsed] = useState(false);
     const {
         token: { colorBgContainer },
     } = theme.useToken();
-    
+
     return (
         <Layout>
             <Sider trigger={null} collapsible collapsed={collapsed}>
                 <div className="demo-logo-vertical" />
-               <Link href="/home"><p className='text-white text-3xl text-center py-2'>Service</p></Link> 
+                <Link href="/home"><p className='text-white text-3xl text-center py-2'>FS</p></Link>
                 <Menu
                     theme="dark"
                     mode="inline"
@@ -44,8 +44,8 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
                     }}
                 >
 
-                    <Row 
-                    justify="space-between">
+                    <Row
+                        justify="space-between">
                         <Col className='-ml-12'>
                             <Button
                                 type="text"
@@ -58,7 +58,7 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
                                 }}
                             />
                         </Col>
-                       
+
 
                     </Row>
                 </AntHeader>

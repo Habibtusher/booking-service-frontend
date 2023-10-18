@@ -54,7 +54,7 @@ const Foods = () => {
     };
     return (
         <div className='container mx-auto'>
-            <h1 className='text-2xl text-center py-10'>Foods</h1>
+            <h1 className='text-2xl text-center pb-10'>Foods</h1>
             <FoodSearch onSearch={handleSearch} />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {filteredFoods.map((food, index) => (
