@@ -1,6 +1,7 @@
 export enum USER_ROLE{
    
-    CUSTOMER = "customer",
+    USER = "user",
     ADMIN = "admin",
     SUPER_ADMIN = "super_admin"
 }
+export const role = USER_ROLE.USER

@@ -175,7 +175,7 @@ const SignUp = () => {
 
 
 
-                                    {/* Checkbox for terms and conditions */}
+                                  
                                     <label className="block mt-5">
                                         <Field type="checkbox" name="termsAndCon" className="mr-2" />
                                         I accept the terms and conditions

@@ -1,3 +1,5 @@
+import { role } from '@/constants/role';
+import Link from 'next/link';
 import React from 'react';
 
 const Navbar = () => {
@@ -55,10 +57,10 @@ const Navbar = () => {
             </label>
             <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
               <li>
-                <a className="justify-between">
+                <Link href={`${role}/profile`} className="justify-between">
                   Profile
                   <span className="badge">New</span>
-                </a>
+                </Link>
               </li>
               <li><a>Settings</a></li>
               <li><a>Logout</a></li>

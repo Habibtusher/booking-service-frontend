@@ -8,9 +8,11 @@ import {
     VideoCameraOutlined,
 } from '@ant-design/icons';
 import { Layout, Menu, Button, theme, Row, Dropdown, MenuProps, Space, Avatar, Col } from 'antd';
+import { sidebarItems } from '@/constants/sidebarItems';
 
 const { Header: AntHeader, Sider, Content } = Layout;
 const Sidebar = ({ children }: { children: React.ReactNode }) => {
+    const role = 'user';
     const [collapsed, setCollapsed] = useState(false);
     const {
         token: { colorBgContainer },
@@ -33,23 +35,7 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
                     theme="dark"
                     mode="inline"
                     defaultSelectedKeys={['1']}
-                    items={[
-                        {
-                            key: '1',
-                            icon: <UserOutlined />,
-                            label: 'nav 1',
-                        },
-                        {
-                            key: '2',
-                            icon: <VideoCameraOutlined />,
-                            label: 'nav 2',
-                        },
-                        {
-                            key: '3',
-                            icon: <UploadOutlined />,
-                            label: 'nav 3',
-                        },
-                    ]}
+                    items={sidebarItems(role)}
                 />
             </Sider>
             <Layout>
@@ -73,29 +59,7 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
                                 }}
                             />
                         </Col>
-                        <Col>
-                            <Row justify="end"
-                                align="middle"
-                                style={{
-                                    height: "100%",
-                                }}>
-                                <p
-                                    style={{
-                                        margin: "0px 5px",
-                                    }}
-                                >
-                                    Admin
-                                </p>
-                                <Dropdown menu={{ items }}>
-                                    <a>
-                                        <Space wrap size={16}>
-                                            <Avatar size="large" icon={<UserOutlined />} />
-                                        </Space>
-                                    </a>
-                                </Dropdown>
-                            </Row>
-
-                        </Col>
+                       
 
                     </Row>
                 </AntHeader>
