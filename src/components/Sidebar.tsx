@@ -9,28 +9,27 @@ import {
 } from '@ant-design/icons';
 import { Layout, Menu, Button, theme, Row, Dropdown, MenuProps, Space, Avatar, Col } from 'antd';
 import { sidebarItems } from '@/constants/sidebarItems';
+import { decodedToken } from '@/utils/jwt';
+import { authKey } from '@/constants/storageKey';
+import { getFromLocalStorage } from '@/utils/local-storage';
+import { getUserInfo } from '@/services/auth.service';
+import Link from 'next/link';
 
 const { Header: AntHeader, Sider, Content } = Layout;
 const Sidebar = ({ children }: { children: React.ReactNode }) => {
-    const role = 'user';
+    
+    const {role} = getUserInfo() as any;
+    console.log("hello from sidebar",role);
     const [collapsed, setCollapsed] = useState(false);
     const {
         token: { colorBgContainer },
     } = theme.useToken();
-    const items: MenuProps["items"] = [
-        {
-            key: "0",
-            label: (
-                <Button type="text" danger>
-                    Logout
-                </Button>
-            ),
-        },
-    ];
+    
     return (
         <Layout>
             <Sider trigger={null} collapsible collapsed={collapsed}>
                 <div className="demo-logo-vertical" />
+               <Link href="/home"><p className='text-white text-3xl text-center py-2'>Service</p></Link> 
                 <Menu
                     theme="dark"
                     mode="inline"

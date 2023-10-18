@@ -7,6 +7,7 @@ import {
   ThunderboltOutlined,
   CreditCardOutlined,
   FileTextOutlined,
+  HistoryOutlined
 } from "@ant-design/icons";
 import Link from "next/link";
 
@@ -22,7 +23,7 @@ export const sidebarItems = (role: string) => {
     {
       label:<Link href={`/${role}/history`}>History</Link> ,
       key: "history",
-      icon: <ProfileOutlined />,
+      icon: <HistoryOutlined />,
      
     },
   ];

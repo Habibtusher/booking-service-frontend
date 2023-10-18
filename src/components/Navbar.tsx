@@ -1,8 +1,11 @@
-import { role } from '@/constants/role';
+"use client"
+import { getUserInfo } from '@/services/auth.service';
 import Link from 'next/link';
 import React from 'react';
 
 const Navbar = () => {
+  const {role} = getUserInfo() as any;
+  console.log("fjdsfgsdghjhg",role)
   return (
     <div className="navbar bg-red-100">
       <div className="navbar-start">

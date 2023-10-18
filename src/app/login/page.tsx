@@ -13,6 +13,7 @@ import { storeUserInfo } from '@/services/auth.service';
 import { useRouter } from 'next/navigation';
 import { message } from '@/helpers/toast/toastHelper';
 import { toast } from 'react-toastify';
+import { decodedToken } from '@/utils/jwt';
 
 const Login = () => {
     const [passwordShown, setPasswordShown] = useState(false);
@@ -30,8 +31,10 @@ const Login = () => {
             const res = await userLogin({ ...data }).unwrap();
             if (res?.data?.accessToken) {
                 storeUserInfo({ accessToken: res?.data?.accessToken });
+                const data = decodedToken(res?.data?.accessToken) as any
+                console.log(data.role)
                 message.success(res.message);
-                router.push("/profile");
+                router.push(`/${data?.role}/profile`);
             }
           
         } catch (err: any) {
