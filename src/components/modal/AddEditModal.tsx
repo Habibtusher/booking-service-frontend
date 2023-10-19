@@ -13,44 +13,53 @@ import {
     PlusOutlined,
 } from "@ant-design/icons";
 import axios from 'axios';
+import { getBaseUrl } from '@/helpers/config/envConfig';
+import { message } from '@/helpers/toast/toastHelper';
 const AddEditModal: React.FC<AddEditModalProps> = ({
     showModal,
     setShowModal,
     getAllFood,
     singleFood,
     status, }) => {
+        console.log(singleFood);
     const { Option } = Select;
     const [form] = Form.useForm();
     const [logoPreview, setLogoPreview] = React.useState<string | undefined | null>();
     const [loading, setLoading] = React.useState(false);
+    const [data, setData] = React.useState([]);
+    const baseUrl = getBaseUrl();
     const onFinish = async (values: any) => {
-        const discount_price =
-            values.price - (values.price * values.discount_percent) / 100;
-        console.log(discount_price, values);
-        //   const value = {
-        //     id: singleFood ? singleFood._id : "",
-        //     name: values.name,
-        //     category: values.category,
-        //     image: logoPreview,
-        //     price: values.price,
-        //     discountPrice: discount_price,
-        //     discountPercent: values.discount_percent,
-        //     ratting: 0,
-        //   };
+  
+          
+          const value = {
+            name: values.name,
+            category: values.category,
+            image: logoPreview,
+            price: values.price,
 
+          };
+          const res = await axios.post(`${baseUrl}/service`,value)
+          message.success("Service Added Successfully");
         //   const { data } = await create(insert_food, value);
         //   if (data.status === "success") {
         //     toast.success(data.message);
 
-        //     getAllFood();
+        //     
         //   }
         //   setLogoPreview()
-        //   form.resetFields();
-        //   setShowModal(false);
+        getAllFood();
+          form.resetFields();
+          setShowModal(false);
     };
+  
+    const getCategory = async () => {
+        const res = await axios.get(`${baseUrl}/category`)
+        setData(res?.data?.data)
+    }
+
 
     useEffect(() => {
-
+        getCategory()
         //   if(singleFood){
         //     form.setFieldsValue({
         //       name:singleFood.name,
@@ -117,7 +126,7 @@ const AddEditModal: React.FC<AddEditModalProps> = ({
                             />
                         ) : (
                             <div
-                              
+
                             >
                                 {loading ? <LoadingOutlined /> : <PlusOutlined />}
                                 <div style={{ marginTop: 8 }}>Add</div>
@@ -167,10 +176,15 @@ const AddEditModal: React.FC<AddEditModalProps> = ({
                             },
                         ]}
                     >
-                        <Select  defaultValue={null}>
+                        <Select defaultValue={null}>
                             <Option value={null}>Select</Option>
-                            <Option value="Chicken Special">Chicken Special</Option>
-                         
+                            {
+                                data.map((value:any, i) => (
+                                    <Option key={i} value={value?._id}>{value?.name}</Option>
+                                ))
+                            }
+
+
                         </Select>
                     </Form.Item>
                     <Form.Item
@@ -185,7 +199,7 @@ const AddEditModal: React.FC<AddEditModalProps> = ({
                     >
                         <Input className='p-2' />
                     </Form.Item>
-                
+
                     <div style={{ textAlign: "right" }}>
                         <Button
                             style={{ marginRight: "10px" }}

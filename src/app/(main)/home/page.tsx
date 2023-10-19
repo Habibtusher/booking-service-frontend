@@ -1,12 +1,15 @@
 "use client"
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Foods from '@/components/Foods';
 import Reviews from '@/components/Reviews';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import AboutUs from '@/components/AboutUs';
+import { getBaseUrl } from '@/helpers/config/envConfig';
+import axios from 'axios';
 
 
 const Home = () => {
+
   return (
     <div className='min-h-screen'>
       <div className="relative">
@@ -30,7 +33,7 @@ const Home = () => {
           <AboutUs />
         </div>
       </div>
-      <Foods />
+      <Foods  />
       <Reviews />
 
     </div>

@@ -3,31 +3,46 @@ import { Avatar, Button, Card, Upload } from 'antd';
 import axios from 'axios';
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+
+import { useGetSingleUserQuery, useUpdateProfileMutation, useUploadProfileImageMutation } from '@/redux/api/authApi';
+import Loading from '@/app/loading';
+import { message } from '@/helpers/toast/toastHelper';
+import { getUserInfo } from '@/services/auth.service';
 const UserProfile = () => {
+    const [uploadProfileImage] = useUploadProfileImageMutation();
+    const [updateProfile] = useUpdateProfileMutation();
     const [buttonLoading, setButtonLoading] = React.useState(false);
-    const uploadProfileImage = async (url: string) => {
-        // const newData = {
-        //   photo: url,
-        // };
-        // try {
-        //   const { data } = await updateProfile(
-        //     `${update_user_profile}${User.email}`,
-        //     newData
-        //   );
-        //   if (data.status === "success") {
-        //     toast.success("profile update successfully");
-        //     setModal1Visible(true);
-        //     getProfile();
-        //   }
-        // } catch (err) {
-        //   console.log(err);
-        // }
-    };
-    let userProfile = {
-        photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTEfik2KTL2jogzEqGYo90g--rGfzAiLnp0RTdflE&s"
-    }
-    const handleUpdate = (values: any) => {
+    const { email } = getUserInfo() as any;
+    
+    const { data, error, isLoading,refetch  } = useGetSingleUserQuery(email);
+    // const uploadProfileImage = async (url: string) => {
+    //     // const newData = {
+    //     //   photo: url,
+    //     // };
+    //     // try {
+    //     //   const { data } = await updateProfile(
+    //     //     `${update_user_profile}${User.email}`,
+    //     //     newData
+    //     //   );
+    //     //   if (data.status === "success") {
+    //     //     toast.success("profile update successfully");
+    //     //     setModal1Visible(true);
+    //     //     getProfile();
+    //     //   }
+    //     // } catch (err) {
+    //     //   console.log(err);
+    //     // }
+    // };
+
+    const handleUpdate =async (values: any) => {
+      const res:any = await updateProfile({
+            email:email,
+            data:values
+        })
+        if (res?.data?.success === true) {
+            message.success("profile uploaded successfully")
+            refetch()
+        }
         console.log(values);
     }
     const uploadImage = async (options: any) => {
@@ -43,15 +58,28 @@ const UserProfile = () => {
                 imageData
             );
             if (data.success === true) {
-                uploadProfileImage(data.data.display_url);
-                userProfile.photo = data.data.display_url
-                console.log(data.data.display_url);
+                // uploadProfileImage(data.data.display_url);
+                const res:any = await uploadProfileImage({
+                    email,
+                    image:{
+                       profileImage: data.data.display_url 
+                    }
+                    
+                })
+                if (res?.data?.success === true) {
+                    message.success("profile image uploaded successfully")
+                    refetch()
+                }
+                console.log(res?.data); 
                 setButtonLoading(false);
             }
         } catch (error) {
             console.log(error);
         }
     };
+    if (isLoading) {
+        return <Loading />
+    }
     return (
         <div>
             <Card className="p-3">
@@ -59,8 +87,8 @@ const UserProfile = () => {
                     <Avatar
                         size={80}
                         src={
-                            userProfile?.photo
-                                ? userProfile?.photo
+                            data ?
+                                data?.data.profileImage
                                 : "https://joeschmoe.io/api/v1/random"
                         }
                     />
@@ -85,14 +113,14 @@ const UserProfile = () => {
                 <Formik
                     initialValues={{
                         name: {
-                            firstName: '',
-                            middleName: '',
-                            lastName: '',
+                            firstName: data ? data?.data?.name?.firstName : '',
+                            middleName: data ? data?.data?.name?.middleName : "",
+                            lastName: data ? data?.data?.name?.lastName : "",
                         },
-                        email: '',
-                        gender: '',
-                        presentAddress: '',
-                        permanentAddress: '',
+                        email: data ? data?.data?.email : '',
+                        gender: data ? data?.data?.gender : '',
+                        presentAddress: data ? data?.data?.presentAddress : '',
+                        permanentAddress: data ? data?.data?.permanentAddress : '',
 
 
                     }}

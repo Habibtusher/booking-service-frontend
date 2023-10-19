@@ -34,6 +34,12 @@ export const sidebarItems = (role: string) => {
      
     },
     {
+      label:<Link href={`/admin/manage-category`}>Manage Catyegory</Link> ,
+      key: "category",
+      icon: <MenuUnfoldOutlined />,
+     
+    },
+    {
       label:<Link href={`/admin/manage-admin`}>Manage Admin</Link> ,
       key: "admin",
       icon: <UsergroupAddOutlined />,

@@ -1,6 +1,13 @@
 export type IFood ={
-    name:string;
-    image:string;
-    price:number;
-    category:string;
+        _id: string;
+        name: string;
+        image: string;
+        price: number;
+        category: {
+            name:string
+        };
+        createdAt: string;
+        updatedAt: string;
+      
+      
 }

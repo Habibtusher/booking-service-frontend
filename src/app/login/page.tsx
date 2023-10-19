@@ -29,6 +29,7 @@ const Login = () => {
     const handleLogin = async (data: IUserData) => {
         try {
             const res = await userLogin({ ...data }).unwrap();
+       
             if (res?.data?.accessToken) {
                 storeUserInfo({ accessToken: res?.data?.accessToken });
                 const data = decodedToken(res?.data?.accessToken) as any
