@@ -101,7 +101,7 @@ const AddEditModal: React.FC<AddEditModalProps> = ({
                 }}
                 footer={null}
             >
-                <div className="d-flex mt-3 uploader">
+                <div className="flex mt-6 ">
                     <Upload
                         name="avatar"
                         listType="picture-card"
@@ -117,12 +117,7 @@ const AddEditModal: React.FC<AddEditModalProps> = ({
                             />
                         ) : (
                             <div
-                                style={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                    gap: "10px",
-                                }}
+                              
                             >
                                 {loading ? <LoadingOutlined /> : <PlusOutlined />}
                                 <div style={{ marginTop: 8 }}>Add</div>
@@ -145,7 +140,7 @@ const AddEditModal: React.FC<AddEditModalProps> = ({
                     ></Button>
                 </div>
                 <Form
-                    className="mt-3"
+                    className="mt-2"
                     layout="vertical"
                     form={form}
                     onFinish={onFinish}
@@ -160,7 +155,7 @@ const AddEditModal: React.FC<AddEditModalProps> = ({
                             },
                         ]}
                     >
-                        <Input />
+                        <Input className='p-2' />
                     </Form.Item>
                     <Form.Item
                         name="category"
@@ -172,17 +167,10 @@ const AddEditModal: React.FC<AddEditModalProps> = ({
                             },
                         ]}
                     >
-                        <Select defaultValue={null}>
+                        <Select  defaultValue={null}>
                             <Option value={null}>Select</Option>
                             <Option value="Chicken Special">Chicken Special</Option>
-                            <Option value="Soup">Soup</Option>
-                            <Option value="Sub & Burger">Sub & Burger</Option>
-                            <Option value="Combo Pack">Combo Pack</Option>
-                            <Option value="Noodles & Pasta">Noodles & Pasta</Option>
-                            <Option value="Pizza & Sandwich">Pizza & Sandwich</Option>
-                            <Option value="Rice Item">Rice Item</Option>
-                            <Option value="Plater">Plater</Option>
-                            <Option value="Drinks & Dessert">Drinks & Dessert</Option>
+                         
                         </Select>
                     </Form.Item>
                     <Form.Item
@@ -195,12 +183,9 @@ const AddEditModal: React.FC<AddEditModalProps> = ({
                             },
                         ]}
                     >
-                        <Input />
+                        <Input className='p-2' />
                     </Form.Item>
-                    <Form.Item name="discount_percent" label="Discount Percent">
-                        <Input />
-                    </Form.Item>
-
+                
                     <div style={{ textAlign: "right" }}>
                         <Button
                             style={{ marginRight: "10px" }}

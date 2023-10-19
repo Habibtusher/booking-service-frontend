@@ -28,13 +28,13 @@ export const sidebarItems = (role: string) => {
      
     },
     {
-      label:<Link href={`/admin/manage-service`}>Manage Admin</Link> ,
+      label:<Link href={`/admin/manage-service`}>Manage Services</Link> ,
       key: "manage",
       icon: <MenuUnfoldOutlined />,
      
     },
     {
-      label:<Link href={`/admin/manage-admin`}>Manage Service</Link> ,
+      label:<Link href={`/admin/manage-admin`}>Manage Admin</Link> ,
       key: "admin",
       icon: <UsergroupAddOutlined />,
      
