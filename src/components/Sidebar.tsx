@@ -19,7 +19,7 @@ const { Header: AntHeader, Sider, Content } = Layout;
 const Sidebar = ({ children }: { children: React.ReactNode }) => {
 
     const { role } = getUserInfo() as any;
-    console.log("hello from sidebar", role);
+   
     const [collapsed, setCollapsed] = useState(false);
     const {
         token: { colorBgContainer },

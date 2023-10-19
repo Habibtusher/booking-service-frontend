@@ -1,12 +1,15 @@
 "use client"
+import { message } from '@/helpers/toast/toastHelper';
 import { clearCart } from '@/redux/api/features/services/serviceSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { getUserInfo } from '@/services/auth.service';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
 const Navbar = () => {
   const { role } = getUserInfo() as any;
+  const router = useRouter()
   const { cart, total } = useAppSelector((state) => state.service)
   const dispatch = useAppDispatch();
   console.log(cart, total);
@@ -74,7 +77,11 @@ const Navbar = () => {
                 </Link>
               </li>
               <li><a>Settings</a></li>
-              <li><a>Logout</a></li>
+              <li><a onClick={()=>{
+                localStorage.clear();
+                message.success("logged out")
+                router.push('/login')
+              }}>Logout</a></li>
             </ul>
           </div>
         </div>

@@ -21,12 +21,7 @@ export const sidebarItems = (role: string) => {
       icon: <ProfileOutlined />,
      
     },
-    {
-      label:<Link href={`/${role}/history`}>History</Link> ,
-      key: "history",
-      icon: <HistoryOutlined />,
-     
-    },
+   
     {
       label:<Link href={`/admin/manage-service`}>Manage Services</Link> ,
       key: "manage",
@@ -46,8 +41,29 @@ export const sidebarItems = (role: string) => {
      
     },
   ];
+  const user: MenuProps["items"] = [
+    {
+      label:<Link href={`/${role}/profile`}>Profile</Link> ,
+      key: "profile",
+      icon: <ProfileOutlined />,
+     
+    },
+    {
+      label:<Link href={`/${role}/history`}>History</Link> ,
+      key: "history",
+      icon: <HistoryOutlined />,
+     
+    },
+   
+    
+  ];
 
-
+if(role === "admin"){
+  return defaultSidebarItems
+}
+else{
+  return user
+}
 
 //   if (role === USER_ROLE.SUPER_ADMIN) return superAdminSidebarItems;
 //   else if (role === USER_ROLE.ADMIN) return adminSidebarItems;
@@ -57,6 +73,6 @@ export const sidebarItems = (role: string) => {
 //     return defaultSidebarItems;
 //   }
 
-    return defaultSidebarItems;
+    // return defaultSidebarItems;
   
 };
