@@ -8,16 +8,12 @@ import { useGetServiceQuery } from '@/redux/api/features/services/serviceApi';
 
 
 const Foods: React.FC = () => {
-  const [data, setData] = useState<IFood[]>([]);
-  const baseUrl = getBaseUrl();
-
-  const [filteredFoods, setFilteredFoods] = useState<IFood[]>(data);
-  const { data: service } = useGetServiceQuery(undefined)
+  const { data: service } = useGetServiceQuery({limit: 2, page: 1})
   const handleSearch = (searchTerm: string) => {
-    const filteredResults = data.filter((food) =>
-      food?.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredFoods(filteredResults);
+    // const filteredResults = data.filter((food) =>
+    //   food?.name.toLowerCase().includes(searchTerm.toLowerCase())
+    // );
+    // setFilteredFoods(filteredResults);
   };
 
   return (
