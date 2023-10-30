@@ -11,7 +11,7 @@ import axios from 'axios';
 const Home = () => {
 
   return (
-    <div className='min-h-screen'>
+    <div className='min-h-screen '>
       <div className="relative">
         <div className="carousel w-full">
           <div id="slide1" className="carousel-item relative w-full">

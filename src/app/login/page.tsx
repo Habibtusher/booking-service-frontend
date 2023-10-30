@@ -111,7 +111,7 @@ const Login = () => {
                                     </div>
                                     <button
                                         type="submit"
-                                        className="py-3 w-full bg-gradient-to-br from-[#000080] via-[#000080] to-[#7D26CD] mt-10 border-2 border-white rounded-md font-medium cursor-pointer text-white"
+                                        className="py-3 w-full bg-[#4A6CD1] mt-10 border-2 border-white rounded-md font-medium cursor-pointer text-white"
                                     >
                                         Login
                                     </button>

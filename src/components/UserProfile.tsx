@@ -100,7 +100,7 @@ const UserProfile = () => {
                         <Button
                             style={{
                                 marginLeft: "20px",
-                                backgroundColor: "#334669",
+                                backgroundColor: "#4A6CD1",
                                 color: "#FFFFFF",
                                 borderRadius: "5px",
                             }}
@@ -236,7 +236,7 @@ const UserProfile = () => {
                             <button
                                 type="submit"
 
-                                className="py-3 w-full bg-gradient-to-br from-[#000080] via-[#000080] to-[#7D26CD] mt-10 border-2 border-white rounded-md font-medium cursor-pointer text-white"
+                                className="py-3 w-40 bg-[#4A6CD1] mt-10 border-2 border-white rounded-md font-medium cursor-pointer text-white"
                             >
                                 Update
                             </button>
