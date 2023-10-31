@@ -1,45 +1,21 @@
-"use client"
-import { Card } from 'antd';
-import React from 'react';
+import React from "react";
 
 const AboutUs = () => {
-    const [isContentVisible, setContentVisible] = React.useState(false);
-
-    const revealContent = () => {
-        setContentVisible(true);
-    };
-
-    const hideContent = () => {
-        setContentVisible(false);
-    };
-
-    return (
-        <div className='flex justify-center items-center'>
-            <div className="relative inline-block">
-                <button
-                    className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300"
-                    onMouseEnter={() => setContentVisible(true)}
-                    onMouseLeave={() => setContentVisible(false)}
-                >
-                    Hover Me!
-                </button>
-                {isContentVisible &&
-                    <div className="absolute top-10 left-0 w-96 bg-white p-4 border border-gray-300 shadow-md rounded-md">
-                        <p className="text-gray-700">
-                            Company Name: Your Company
-                        </p>
-                        <p className="text-gray-700">
-                            Location: Your Location
-                        </p>
-                        <p className="text-gray-700">
-                            Description: Your Company Description
-                        </p>
-                    </div>
-                }
-            </div>
-        </div>
-
-    );
+  return (
+    <div
+      className="relative min-h-full bg-cover bg-center h-96 bg-opacity-50 grid lg:grid-cols-2 gap-4 text-white items-center justify-center"
+      style={{
+        backgroundImage:
+          "url('https://static.nationalgeographic.co.uk/files/styles/image_3200/public/tryitnow_GettyImages-1127515284_HR.jpg?w=1600&h=900')",
+      }}
+    >
+      <div className="absolute inset-0 bg-slate-300 opacity-50"></div>{" "}
+      <div className="text-center opacity-100">
+        <h2 className="text-2xl font-bold">Food Fantasy</h2>
+        <p className="mt-2">About Us</p>
+      </div>
+    </div>
+  );
 };
 
 export default AboutUs;

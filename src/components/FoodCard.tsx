@@ -25,9 +25,9 @@ const FoodCard: React.FC<Props> = ({ food }) => {
     console.log(cart, cartItem, food);
     const quantityInCart = cartItem ? cartItem.quantity : 0;
     return (
-        <div className="bg-white shadow-md rounded-lg p-4">
+        <div className="bg-white shadow-md rounded-lg p-2 w-full">
             <div className="text-center mb-4">
-                <img src={food.image} alt={food.name} className="w-32 h-32 mx-auto mb-2" />
+                <img src={food.image} alt={food.name} className=" h-32 mx-auto mb-2" />
                 <p className="font-semibold">{food.name}</p>
                 <p className="text-gray-500">{food?.category?.name}</p>
                 <p className="text-lg font-bold">$ {food.price}</p>

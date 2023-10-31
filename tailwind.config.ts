@@ -28,6 +28,9 @@ const config: Config = {
 
           error: "#f62d23",
         },
+        screens: {
+          'sm': '500px',
+        }
       },
     ],
   },
