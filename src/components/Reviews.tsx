@@ -29,12 +29,42 @@ const testimonials = [
     text: 'Sed dignissim sem nec arcu pellentesque, non suscipit lectus cursus.',
     authorImage: "https://wallpapers.com/images/hd/cool-profile-picture-87h46gcobjl5e4xu.jpg"
   },
+  {
+    author: 'Alice Johnson',
+    text: 'Sed dignissim sem nec arcu pellentesque, non suscipit lectus cursus.',
+    authorImage: "https://wallpapers.com/images/hd/cool-profile-picture-87h46gcobjl5e4xu.jpg"
+  },
+  {
+    author: 'Alice Johnson',
+    text: 'Sed dignissim sem nec arcu pellentesque, non suscipit lectus cursus.',
+    authorImage: "https://wallpapers.com/images/hd/cool-profile-picture-87h46gcobjl5e4xu.jpg"
+  },
+  {
+    author: 'Alice Johnson',
+    text: 'Sed dignissim sem nec arcu pellentesque, non suscipit lectus cursus.',
+    authorImage: "https://wallpapers.com/images/hd/cool-profile-picture-87h46gcobjl5e4xu.jpg"
+  },
 ];
 
 const Reviews = () => {
   return (
     <div>
-      <p className='text-2xl py-10 text-center'>Reviews</p>
+       <div className="  w-max h-max mx-auto my-20 relative ">
+        <div className="bg-[#EEEEEE] relative z-10 ">
+          <p className="text-lg md:text-2xl lg:text-2xl font-semibold text-center px-2 ">
+          Review&apos;s
+          </p>
+        </div>
+        <div className="zindex">
+          <div className=" bg-[#EA972D] w-5/12 absolute -bottom-1 -left-1 px-6  ">
+            0
+          </div>
+          <div className=" bg-[#EA972D] w-5/12 absolute -top-1 -right-1  ">
+            0
+          </div>
+        </div>
+      </div>
+  
       <div style={cardStyle}>
         <Carousel autoPlay showArrows={false} showStatus={false} showThumbs={false} infiniteLoop>
           {testimonials.map((testimonial, index) => (

@@ -20,7 +20,7 @@ const SignUp = () => {
         } catch (error) {
 
         }
-        console.log(data);
+
     };
     return (
         <div className='container mx-auto'>

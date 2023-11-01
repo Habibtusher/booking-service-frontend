@@ -16,11 +16,6 @@ const Home = () => {
           backgroundImage: "url('/banner.jpg')",
         }}
       >
-        {/* <div className="absolute inset-0 bg-slate-300 opacity-10"></div>{" "} */}
-        {/* <div className="text-center opacity-100">
-          <h2 className="text-2xl md:text-5xl font-bold">Food Fantasy</h2>
-          <p className="mt-2 md:text-3xl">Best Restaurants In Town.</p>
-        </div> */}
       </div>
 
       <Foods />

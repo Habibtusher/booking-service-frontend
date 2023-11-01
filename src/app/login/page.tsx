@@ -33,7 +33,7 @@ const Login = () => {
             if (res?.data?.accessToken) {
                 storeUserInfo({ accessToken: res?.data?.accessToken });
                 const data = decodedToken(res?.data?.accessToken) as any
-                console.log(data.role)
+             
                 message.success(res.message);
                 router.push(`/${data?.role}/profile`);
             }

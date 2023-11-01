@@ -18,9 +18,8 @@ const ManageCategoryCom = () => {
   const [status, setStatus] =React.useState("add");
   const [showModal, setShowModal] =React.useState(false);
   const [singleFood, setSingleFood] =React.useState({});
- 
-  console.log(data);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+
 
   const columns = [
     {

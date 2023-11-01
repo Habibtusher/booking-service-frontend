@@ -1,5 +1,6 @@
 "use client";
 import { message } from "@/helpers/toast/toastHelper";
+import { useGetSingleUserQuery } from "@/redux/api/authApi";
 import { clearCart } from "@/redux/api/features/services/serviceSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { getUserInfo } from "@/services/auth.service";
@@ -9,11 +10,13 @@ import React, { useEffect, useState } from "react";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
-  const { role } = getUserInfo() as any;
+  const { role, email } = getUserInfo() as any;
+
+  const { data, error, isLoading, refetch } = useGetSingleUserQuery(email);
   const router = useRouter();
   const { cart, total } = useAppSelector((state) => state.service);
   const dispatch = useAppDispatch();
-  console.log(cart, total);
+
   const handleClearCart = () => {
     dispatch(clearCart());
   };
@@ -69,7 +72,6 @@ const Navbar = () => {
             className="h-14"
             src="https://i.ibb.co/hFTdzyM/received-928227521113452.png"
             alt="received-928227521113452"
-           
           />
         </Link>
       </div>
@@ -82,7 +84,10 @@ const Navbar = () => {
       <div className="navbar-end">
         <div className="flex">
           <div className="dropdown dropdown-end">
-            <label tabIndex={0} className="btn btn-ghost btn-circle text-slate-50">
+            <label
+              tabIndex={0}
+              className="btn btn-ghost btn-circle text-slate-50"
+            >
               <div className="indicator">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -111,12 +116,12 @@ const Navbar = () => {
                 <span className="font-bold text-lg">{cart?.length} Items</span>
                 <span className="text-info">Subtotal: ${total}</span>
                 <div className="card-actions">
-                  <button className="btn btn-primary btn-block">
+                  <button className="btn btn-xs ">
                     <Link href="/checkout">View cart</Link>{" "}
                   </button>
                   <button
                     onClick={() => handleClearCart()}
-                    className="btn btn-secondary btn-block"
+                    className="btn btn-xs btn-warning"
                   >
                     Clear cart
                   </button>
@@ -144,10 +149,18 @@ const Navbar = () => {
               <span className="badge badge-xs badge-primary indicator-item"></span>
             </div>
           </button>
-          <div className="dropdown dropdown-end">
+          {
+            email ? 
+            <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
-                <img src="https://marketplace.canva.com/EAFXS8-cvyQ/1/0/1600w/canva-brown-and-light-brown%2C-circle-framed-instagram-profile-picture-2PE9qJLmPac.jpg" />
+                <img
+                  src={
+                    data
+                      ? data?.data?.profileImage
+                      : "https://marketplace.canva.com/EAFXS8-cvyQ/1/0/1600w/canva-brown-and-light-brown%2C-circle-framed-instagram-profile-picture-2PE9qJLmPac.jpg"
+                  }
+                />
               </div>
             </label>
             <ul
@@ -164,18 +177,29 @@ const Navbar = () => {
                 <a>Settings</a>
               </li>
               <li>
-                <a
-                  onClick={() => {
-                    localStorage.clear();
-                    message.success("logged out");
-                    router.push("/login");
-                  }}
-                >
-                  Logout
-                </a>
+                {email ? (
+                  <a
+                    onClick={() => {
+                      localStorage.clear();
+                      message.success("logged out");
+                      router.push("/login");
+                    }}
+                  >
+                    Logout
+                  </a>
+                ) : (
+                  <Link href="/login">Login</Link>
+                )}
               </li>
             </ul>
           </div>
+          :
+          <Link className="mt-2 ml-2" href="/login">
+            <button className="btn btn-sm"> Login</button>
+           
+            </Link>
+          }
+          
         </div>
       </div>
     </div>

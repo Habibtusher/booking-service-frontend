@@ -90,7 +90,7 @@ th {
   text-align: left;
   padding: 5px;
   color: white;
-  background-color: #ff523b;
+  background-color: #EA972D;
   font-weight: normal;
 }
 td {
@@ -98,7 +98,7 @@ td {
 }
 td .remove {
   cursor: pointer;
-  color: #ff523b;
+  color: #EA972D;
 }
 td img {
   width: 80px;
@@ -114,7 +114,7 @@ td img {
 }
 .total-price table {
   margin-top: 10px;
-  border-top: 3px solid #ff523b;
+  border-top: 3px solid #EA972D;
   width: 100%;
   max-width: 400px;
 }
@@ -132,13 +132,13 @@ th:last-child {
 }
 .checkout-btn:hover {
   color: white;
-  background-color: #ff523b;
-  border: 1px solid  #ff523b;
+  background-color: #44331e;
+  border: 1px solid  #44331e;
 }
 .checkout-btn {
   color: white;
-  background-color: #e46858;
-  border: 1px solid  #e46858;
+  background-color: #EA972D;
+  border: 1px solid  #EA972D;
 }
 
 .btn-text-align {
