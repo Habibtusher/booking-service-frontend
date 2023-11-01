@@ -116,9 +116,9 @@ const Navbar = () => {
                 <span className="font-bold text-lg">{cart?.length} Items</span>
                 <span className="text-info">Subtotal: ${total}</span>
                 <div className="card-actions">
-                  <button className="btn btn-xs ">
-                    <Link href="/checkout">View cart</Link>{" "}
-                  </button>
+                  <Link className="btn btn-xs " href="/checkout">
+                    View cart
+                  </Link>
                   <button
                     onClick={() => handleClearCart()}
                     className="btn btn-xs btn-warning"
@@ -149,57 +149,54 @@ const Navbar = () => {
               <span className="badge badge-xs badge-primary indicator-item"></span>
             </div>
           </button>
-          {
-            email ? 
+          {email ? (
             <div className="dropdown dropdown-end">
-            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-              <div className="w-10 rounded-full">
-                <img
-                  src={
-                    data
-                      ? data?.data?.profileImage
-                      : "https://marketplace.canva.com/EAFXS8-cvyQ/1/0/1600w/canva-brown-and-light-brown%2C-circle-framed-instagram-profile-picture-2PE9qJLmPac.jpg"
-                  }
-                />
-              </div>
-            </label>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
-            >
-              <li>
-                <Link href={`${role}/profile`} className="justify-between">
-                  Profile
-                  <span className="badge">New</span>
-                </Link>
-              </li>
-              <li>
-                <a>Settings</a>
-              </li>
-              <li>
-                {email ? (
-                  <a
-                    onClick={() => {
-                      localStorage.clear();
-                      message.success("logged out");
-                      router.push("/login");
-                    }}
-                  >
-                    Logout
-                  </a>
-                ) : (
-                  <Link href="/login">Login</Link>
-                )}
-              </li>
-            </ul>
-          </div>
-          :
-          <Link className="mt-2 ml-2" href="/login">
-            <button className="btn btn-sm"> Login</button>
-           
+              <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                <div className="w-10 rounded-full">
+                  <img
+                    src={
+                      data
+                        ? data?.data?.profileImage
+                        : "https://marketplace.canva.com/EAFXS8-cvyQ/1/0/1600w/canva-brown-and-light-brown%2C-circle-framed-instagram-profile-picture-2PE9qJLmPac.jpg"
+                    }
+                  />
+                </div>
+              </label>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              >
+                <li>
+                  <Link href={`${role}/profile`} className="justify-between">
+                    Profile
+                    <span className="badge">New</span>
+                  </Link>
+                </li>
+                <li>
+                  <a>Settings</a>
+                </li>
+                <li>
+                  {email ? (
+                    <a
+                      onClick={() => {
+                        localStorage.clear();
+                        message.success("logged out");
+                        router.push("/login");
+                      }}
+                    >
+                      Logout
+                    </a>
+                  ) : (
+                    <Link href="/login">Login</Link>
+                  )}
+                </li>
+              </ul>
+            </div>
+          ) : (
+            <Link className="mt-2 ml-2 btn btn-sm" href="/login">
+              Login
             </Link>
-          }
-          
+          )}
         </div>
       </div>
     </div>
