@@ -37,7 +37,7 @@ const Navbar = () => {
   }, []);
   return (
     <div
-      className={`navbar fixed top-0 left-0 right-0 z-10 ${
+      className={`navbar fixed top-0 left-0 right-0 z-30 ${
         scrolled ? "bg-[#001529] bg-opacity-80" : ""
       }`}
     >

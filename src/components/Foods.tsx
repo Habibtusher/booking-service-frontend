@@ -5,11 +5,14 @@ import { getBaseUrl } from "@/helpers/config/envConfig";
 import axios from "axios";
 import { IFood } from "@/constants/common";
 import { useGetServiceQuery } from "@/redux/api/features/services/serviceApi";
+import Loading from "@/app/loading";
 
 const Foods: React.FC = () => {
-  const { data: service } = useGetServiceQuery({ limit: 10, page: 1 });
+  const { data: service,isLoading } = useGetServiceQuery({ limit: 10, page: 1 });
   const handleSearch = (searchTerm: string) => {};
-
+if(isLoading){
+  return <Loading/>
+}
   return (
     <div className="container mx-auto">
       <div className="  w-max h-max mx-auto my-10 lg:my-20 relative ">
