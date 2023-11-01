@@ -13,14 +13,14 @@ const Home = () => {
       <div
         className="bg-cover bg-center h-64 md:h-[500px] lg:h-[600px] xl:[700px] 2xl:h-screen bg-opacity-50 text-white flex items-center justify-center"
         style={{
-          backgroundImage: "url('/banner.png')",
+          backgroundImage: "url('/banner.jpg')",
         }}
       >
-        <div className="absolute inset-0 bg-slate-300 opacity-10"></div>{" "}
-        <div className="text-center opacity-100">
+        {/* <div className="absolute inset-0 bg-slate-300 opacity-10"></div>{" "} */}
+        {/* <div className="text-center opacity-100">
           <h2 className="text-2xl md:text-5xl font-bold">Food Fantasy</h2>
           <p className="mt-2 md:text-3xl">Best Restaurants In Town.</p>
-        </div>
+        </div> */}
       </div>
 
       <Foods />
