@@ -37,34 +37,32 @@ const FoodCard: React.FC<Props> = ({ food }) => {
         <p className="card-title">{food.name}</p>
         <p>$ {food.price}</p>
         <p>{description}</p>
-        
-          {cartItem ? (
-            <div className="text-center font-semibold w-full">
-              <div className="flex items-center justify-around  text-white rounded-full px-4 py-2 w-full bg-[#44331e] ">
-                <MinusCircleOutlined
-                  className="minus"
-                  onClick={() => dispatch(decreaseQuantity(food?._id))}
-                />
-                {quantityInCart}
-                <PlusCircleOutlined
-                  onClick={() => dispatch(incrementQuantity(food?._id))}
-                  className="plus"
-                />
-              </div>
+
+        {cartItem ? (
+          <div className="text-center font-semibold w-full">
+            <div className="flex items-center justify-around  text-white rounded-full px-4 py-2 w-full bg-[#44331e] ">
+              <MinusCircleOutlined
+                className="minus"
+                onClick={() => dispatch(decreaseQuantity(food?._id))}
+              />
+              {quantityInCart}
+              <PlusCircleOutlined
+                onClick={() => dispatch(incrementQuantity(food?._id))}
+                className="plus"
+              />
             </div>
-          ) : (
-            <button
-              onClick={() => handleAddToCart(food)}
-              //       // disabled={addedToCart}
-              className="bg-[#EA972D] text-white rounded-full font-semibold px-4 py-2 w-full hover:bg-[#44331e]"
-            >
-              Add to Cart
-            </button>
-          )}
-        </div>
+          </div>
+        ) : (
+          <button
+            onClick={() => handleAddToCart(food)}
+            //       // disabled={addedToCart}
+            className="bg-[#EA972D] text-white rounded-full font-semibold px-4 py-2 w-full hover:bg-[#44331e]"
+          >
+            Add to Cart
+          </button>
+        )}
       </div>
-   
-    
+    </div>
   );
 };
 
