@@ -19,7 +19,7 @@ const AboutUs = () => {
       <div className="container mx-auto">
         <div className="gap-5 grid justify-items-center xl:grid-cols-2">
           <div className="w-1/2 md:w-3/4">
-            <img className="rounded hidden md:block " src="/about_banner.jpg" alt="" />
+            <img className="rounded-xl hidden md:block " src="/about_banner.jpg" alt="" />
           </div>
           <div className="font-sans w-3/4 ">
             <div>
