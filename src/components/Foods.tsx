@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import FoodCard from "./FoodCard";
 import FoodSearch from "./InputSearch";
 
@@ -6,11 +6,28 @@ import { useGetServiceQuery } from "@/redux/api/features/services/serviceApi";
 import Loading from "@/app/loading";
 
 const Foods: React.FC = () => {
-  const { data: service,isLoading } = useGetServiceQuery({ limit: 10, page: 1 });
-  const handleSearch = (searchTerm: string) => {};
-if(isLoading){
-  return <Loading/>
-}
+  const [searchTerm, setSearchTerm] = React.useState("");
+  const [filter, setFilter] = useState({
+    limit: 10,
+    page: 1,
+    searchTerm,
+  });
+  const { data: service, isLoading, refetch } = useGetServiceQuery(filter);
+  React.useEffect(() => {
+    setFilter((prevFilter: any) => ({
+      ...prevFilter,
+      searchTerm: searchTerm,
+    }));
+
+    refetch();
+  }, [searchTerm]);
+
+  const handleSearch = (search: string) => {
+    setSearchTerm(search);
+  };
+  if (isLoading) {
+    return <Loading />;
+  }
   return (
     <div className="container mx-auto">
       <div className="  w-max h-max mx-auto my-10 lg:my-20 relative ">

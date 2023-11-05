@@ -1,6 +1,8 @@
 "use client";
-import { Card, Image, Table, Typography } from "antd";
-import React, { useEffect } from "react";
+import { Card, Image, Pagination, Table, Typography } from "antd";
+import type { PaginationProps } from "antd";
+
+import React, { useEffect, useState } from "react";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import AddEditModal from "./modal/AddEditModal";
 import { getBaseUrl } from "@/helpers/config/envConfig";
@@ -10,20 +12,33 @@ import FoodSearch from "./InputSearch";
 import { useGetServiceQuery } from "@/redux/api/features/services/serviceApi";
 import Loading from "@/app/loading";
 const ManagesServicesCom = () => {
-
   const [status, setStatus] = React.useState("add");
+  const [searchTerm, setSearchTerm] = React.useState("");
   const [showModal, setShowModal] = React.useState(false);
+  const [page, setPage] = React.useState(1);
+  const [pageSize, setPageSize] = React.useState(10);
   const [singleFood, setSingleFood] = React.useState<IFood | {}>({});
+  const [filter, setFilter] = useState({
+    page,
+    limit: pageSize,
+    searchTerm,
+  });
+  const { data, isLoading, refetch } = useGetServiceQuery(filter);
+  useEffect(() => {
+    setFilter({
+      page,
+      limit: pageSize,
+      searchTerm,
+    });
 
-  const { data, isLoading } = useGetServiceQuery({ limit: 10, page: 1 });
- 
+    refetch();
+  }, [searchTerm, page, pageSize]);
+
   if (isLoading) {
     return <Loading />;
   }
   const allFoods: any = [];
-  const handleDelete = async (id: string) => {
-
-  };
+  const handleDelete = async (id: string) => {};
   const handleEdit = (id: string) => {
     const editFood = allFoods.find((e: any) => e._id === id);
     setStatus("edit");
@@ -91,12 +106,24 @@ const ManagesServicesCom = () => {
     },
   ];
 
-  const handleSearch = (searchTerm: string) => {
-    console.log(searchTerm);
+  const handleSearch = (search: string) => {
+    setSearchTerm(search);
   };
+
+  const onShowSizeChange: PaginationProps["onShowSizeChange"] = (
+    current,
+    size
+  ) => {
+    setPageSize(size);
+    setPage(current);
+  };
+  const onChange: PaginationProps["onChange"] = (page) => {
+    setPage(page);
+  };
+
   return (
     <div>
-      <div className="flex justify-between py-4">
+      <div className="flex justify-between py-2">
         <button
           onClick={() => {
             setShowModal(true);
@@ -109,30 +136,29 @@ const ManagesServicesCom = () => {
         </button>
 
         <FoodSearch onSearch={handleSearch} />
-        {/* <div className="mb-2 text-right">
-          <Search
-            enterButton="Search"
-            placeholder="search"
-            onChange={(e) => {
-              setQuickSearchValue(e.target.value);
-            }}
-            onSearch={(value) => {
-              setQuickSearchValue(value);
-            }}
-            style={{
-              background: "linear-gradient(to right, #ff0000, #00ff00)",
-              borderColor: "transparent",
-              color: "white",
-            }}
-          />
-        </div> */}
       </div>
+      <div className="pb-4 flex justify-end">
+        <Pagination
+        
+          current={page}
+          onChange={onChange}
+          showSizeChanger
+          onShowSizeChange={onShowSizeChange}
+          total={data?.meta?.total}
+        />
+      </div>
+
       <Card className="p-3">
-        <Table scroll={{ x: true }} dataSource={data?.data} columns={columns} />
+        <Table
+          scroll={{ x: true }}
+          dataSource={data?.data}
+          columns={columns}
+          pagination={false}
+        />
       </Card>
+
       {showModal && (
         <AddEditModal
-         
           showModal={showModal}
           setShowModal={setShowModal}
           status={status}
