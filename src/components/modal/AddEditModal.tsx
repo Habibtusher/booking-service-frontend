@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 type AddEditModalProps = {
   showModal: boolean;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
-  getAllFood: () => void;
   singleFood: object; // Replace with the actual type for singleFood
   status: string; // Replace with the actual type for status
 };
@@ -15,14 +14,14 @@ import {
 import axios from "axios";
 import { getBaseUrl } from "@/helpers/config/envConfig";
 import { message } from "@/helpers/toast/toastHelper";
+import { useAddServiceMutation } from "@/redux/api/features/services/serviceApi";
 const AddEditModal: React.FC<AddEditModalProps> = ({
   showModal,
   setShowModal,
-  getAllFood,
   singleFood,
   status,
 }) => {
-  console.log(singleFood);
+  
   const { Option } = Select;
   const [form] = Form.useForm();
   const [logoPreview, setLogoPreview] = React.useState<
@@ -30,6 +29,7 @@ const AddEditModal: React.FC<AddEditModalProps> = ({
   >();
   const [loading, setLoading] = React.useState(false);
   const [data, setData] = React.useState([]);
+  const [addService] = useAddServiceMutation();
   const baseUrl = getBaseUrl();
   const onFinish = async (values: any) => {
     const value = {
@@ -38,8 +38,8 @@ const AddEditModal: React.FC<AddEditModalProps> = ({
       image: logoPreview,
       price: values.price,
     };
-    const res = await axios.post(`${baseUrl}/service`, value);
-    message.success("Service Added Successfully");
+    const res = addService(value);
+
     //   const { data } = await create(insert_food, value);
     //   if (data.status === "success") {
     //     toast.success(data.message);
@@ -47,7 +47,7 @@ const AddEditModal: React.FC<AddEditModalProps> = ({
     //
     //   }
     //   setLogoPreview()
-    getAllFood();
+
     form.resetFields();
     setShowModal(false);
   };

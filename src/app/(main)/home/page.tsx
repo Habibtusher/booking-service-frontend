@@ -1,11 +1,9 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Foods from "@/components/Foods";
 import Reviews from "@/components/Reviews";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import AboutUs from "@/components/AboutUs";
-import { getBaseUrl } from "@/helpers/config/envConfig";
-import axios from "axios";
 
 const Home = () => {
   return (

@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import FoodCard from "./FoodCard";
 import FoodSearch from "./InputSearch";
-import { getBaseUrl } from "@/helpers/config/envConfig";
-import axios from "axios";
-import { IFood } from "@/constants/common";
+
 import { useGetServiceQuery } from "@/redux/api/features/services/serviceApi";
 import Loading from "@/app/loading";
 
