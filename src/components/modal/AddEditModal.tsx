@@ -3,73 +3,71 @@ import React, { useEffect } from "react";
 type AddEditModalProps = {
   showModal: boolean;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
-  singleFood: object; // Replace with the actual type for singleFood
-  status: string; // Replace with the actual type for status
+  foodId?: string | null;
+  status: string;
 };
-import {
-  DeleteOutlined,
-  LoadingOutlined,
-  PlusOutlined,
-} from "@ant-design/icons";
+import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { getBaseUrl } from "@/helpers/config/envConfig";
 import { message } from "@/helpers/toast/toastHelper";
-import { useAddServiceMutation } from "@/redux/api/features/services/serviceApi";
+import {
+  useAddServiceMutation,
+  useSingleServiceGetQuery,
+} from "@/redux/api/features/services/serviceApi";
+import { useGetCategoryQuery } from "@/redux/api/features/category/categoryApi";
 const AddEditModal: React.FC<AddEditModalProps> = ({
   showModal,
   setShowModal,
-  singleFood,
+  foodId,
   status,
 }) => {
-  
   const { Option } = Select;
   const [form] = Form.useForm();
+  const { TextArea } = Input;
   const [logoPreview, setLogoPreview] = React.useState<
     string | undefined | null
   >();
   const [loading, setLoading] = React.useState(false);
-  const [data, setData] = React.useState([]);
+  const [singleData, setSingleData] = React.useState(false);
   const [addService] = useAddServiceMutation();
-  const baseUrl = getBaseUrl();
+  if (foodId) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const { data } = useSingleServiceGetQuery(foodId);
+    setSingleData(data);
+  }
+  console.log(singleData);
+  const { data } = useGetCategoryQuery(undefined);
+
   const onFinish = async (values: any) => {
     const value = {
       name: values.name,
       category: values.category,
       image: logoPreview,
       price: values.price,
+      description: values.description,
     };
-    const res = addService(value);
+    const res = await addService(value);
 
-    //   const { data } = await create(insert_food, value);
-    //   if (data.status === "success") {
-    //     toast.success(data.message);
-
-    //
-    //   }
-    //   setLogoPreview()
+    if (res.data?.success === true) {
+      message.success(res.data?.message);
+    }
+    setLogoPreview("");
 
     form.resetFields();
     setShowModal(false);
   };
 
-  const getCategory = async () => {
-    const res = await axios.get(`${baseUrl}/category`);
-    setData(res?.data?.data);
-  };
-
   useEffect(() => {
-    getCategory();
-    //   if(singleFood){
-    //     form.setFieldsValue({
-    //       name:singleFood.name,
-    //       category: singleFood.category,
-    //       price:singleFood.price,
-    //       discount_percent:singleFood.discountPercent,
-
-    //     })
-    //     setLogoPreview(singleFood.image)
-    //   }
-  }, []);
+    // if (singleData) {
+    //   form.setFieldsValue({
+    //     name: singleData?.data?.name,
+    //     category: singleData.data?.category,
+    //     price: singleData.data?.price,
+    //     discription: singleData?.data?.discription,
+    //   });
+    //   setLogoPreview(singleData?.data?.image);
+    // }
+  }, [singleData, form]);
   const uploadImage = async (options: any) => {
     setLoading(true);
     const { file } = options;
@@ -91,9 +89,9 @@ const AddEditModal: React.FC<AddEditModalProps> = ({
       console.log(error);
     }
   };
-  const deleteProfileImage = () => {
-    setLogoPreview(null);
-  };
+  // const deleteProfileImage = () => {
+  //   setLogoPreview(null);
+  // };
   return (
     <div>
       <Modal
@@ -109,7 +107,7 @@ const AddEditModal: React.FC<AddEditModalProps> = ({
         }}
         footer={null}
       >
-        <div className="flex mt-6 ">
+        <div className="flex items-center mt-6">
           <Upload
             name="avatar"
             listType="picture-card"
@@ -130,20 +128,19 @@ const AddEditModal: React.FC<AddEditModalProps> = ({
               </div>
             )}
           </Upload>
-          <Button
-            className="mt-4"
+
+          {/* <Button
             style={{
-              marginLeft: "20px",
-              backgroundColor: "#95A7C5",
+             
               borderRadius: "5px",
             }}
             icon={
               <DeleteOutlined
-                style={{ fontSize: "20px", color: "#ffffff" }}
+                style={{ fontSize: "20px", color: "red" }}
                 onClick={() => deleteProfileImage()}
               />
             }
-          ></Button>
+          ></Button> */}
         </div>
         <Form
           className="mt-2"
@@ -161,7 +158,7 @@ const AddEditModal: React.FC<AddEditModalProps> = ({
               },
             ]}
           >
-            <Input className="p-2" />
+            <Input placeholder="name.." className="p-2" />
           </Form.Item>
           <Form.Item
             name="category"
@@ -175,7 +172,7 @@ const AddEditModal: React.FC<AddEditModalProps> = ({
           >
             <Select defaultValue={null}>
               <Option value={null}>Select</Option>
-              {data.map((value: any, i) => (
+              {data?.data.map((value: any, i: any) => (
                 <Option key={i} value={value?._id}>
                   {value?.name}
                 </Option>
@@ -188,11 +185,23 @@ const AddEditModal: React.FC<AddEditModalProps> = ({
             rules={[
               {
                 required: true,
-                message: "Please input peice",
+                message: "Please input price",
               },
             ]}
           >
-            <Input className="p-2" />
+            <Input placeholder="price.." className="p-2" />
+          </Form.Item>
+          <Form.Item
+            name="description"
+            label="Description"
+            rules={[
+              {
+                required: true,
+                message: "Please input description",
+              },
+            ]}
+          >
+            <TextArea placeholder="description" allowClear />
           </Form.Item>
 
           <div style={{ textAlign: "right" }}>
@@ -207,7 +216,16 @@ const AddEditModal: React.FC<AddEditModalProps> = ({
               {" "}
               Cancel
             </Button>
-            <Button htmlType="submit" className="button-style">
+
+            <Button
+              style={{
+                backgroundColor: "#4A6CD1",
+                color: "#FFFFFF",
+                borderRadius: "5px",
+              }}
+              htmlType="submit"
+              className="w-24 h-24"
+            >
               {status === "edit" ? "Update" : "Add"}
             </Button>
           </div>

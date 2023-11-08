@@ -1,23 +1,24 @@
 "use client";
-import { Card, Image, Pagination, Table, Typography } from "antd";
+import {Image, Pagination, Table, Typography } from "antd";
 import type { PaginationProps } from "antd";
 
 import React, { useEffect, useState } from "react";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import AddEditModal from "./modal/AddEditModal";
-import { getBaseUrl } from "@/helpers/config/envConfig";
-import axios from "axios";
-import { IFood } from "@/constants/common";
+
 import FoodSearch from "./InputSearch";
 import { useGetServiceQuery } from "@/redux/api/features/services/serviceApi";
 import Loading from "@/app/loading";
 const ManagesServicesCom = () => {
   const [status, setStatus] = React.useState("add");
-  const [searchTerm, setSearchTerm] = React.useState("");
+
   const [showModal, setShowModal] = React.useState(false);
+
+  const [foodId, setFoodId] = React.useState<string | null>(null);
+  
+  const [searchTerm, setSearchTerm] = React.useState("");
   const [page, setPage] = React.useState(1);
   const [pageSize, setPageSize] = React.useState(10);
-  const [singleFood, setSingleFood] = React.useState<IFood | {}>({});
   const [filter, setFilter] = useState({
     page,
     limit: pageSize,
@@ -40,9 +41,9 @@ const ManagesServicesCom = () => {
   const allFoods: any = [];
   const handleDelete = async (id: string) => {};
   const handleEdit = (id: string) => {
-    const editFood = allFoods.find((e: any) => e._id === id);
+  
     setStatus("edit");
-    setSingleFood(editFood);
+    setFoodId(id);
     setShowModal(true);
   };
   const columns = [
@@ -53,7 +54,7 @@ const ManagesServicesCom = () => {
 
       render: (_: any, record: any) => {
         return (
-          <Image style={{ height: "50px", width: "50px" }} src={record.image} />
+          <Image style={{ height: "40px", width: "40px" }} src={record.image} />
         );
       },
     },
@@ -83,6 +84,9 @@ const ManagesServicesCom = () => {
       title: <Typography className="dashboard-table-header">Price</Typography>,
       dataIndex: "price",
       key: "price",
+      render: (_: any, record: any) => {
+        return <div className="">${record?.price}</div>;
+      }
     },
 
     {
@@ -129,7 +133,7 @@ const ManagesServicesCom = () => {
             setShowModal(true);
             setStatus("add");
           }}
-          className="btn btn-wide"
+          className="py-3 w-40 bg-[#4A6CD1] mt-10 border-2 border-white rounded-md font-medium cursor-pointer text-white"
         >
           {" "}
           Add New
@@ -137,9 +141,8 @@ const ManagesServicesCom = () => {
 
         <FoodSearch onSearch={handleSearch} />
       </div>
-      <div className="pb-4 flex justify-end">
+      <div className="pb-5 flex justify-end">
         <Pagination
-        
           current={page}
           onChange={onChange}
           showSizeChanger
@@ -148,21 +151,20 @@ const ManagesServicesCom = () => {
         />
       </div>
 
-      <Card className="p-3">
         <Table
           scroll={{ x: true }}
           dataSource={data?.data}
           columns={columns}
           pagination={false}
         />
-      </Card>
+     
 
       {showModal && (
         <AddEditModal
           showModal={showModal}
           setShowModal={setShowModal}
           status={status}
-          singleFood={singleFood}
+          foodId={foodId}
         />
       )}
     </div>
